@@ -32,3 +32,18 @@ Is_Current
 Change_Hash
 Created_Date
 Updated_Date
+```
+
+## Change Detection
+A hash/checksum can be created using tracked attributes.  
+If the incoming hash differs from the current active record:
+1. Expire the current row
+2. Insert a new row
+3. Mark the new row as current
+
+## Benefits
+* Preserves historical reporting accuracy
+* Supports point-in-time analytics
+* Simplifies change detection
+* Reduces column-by-column comparison complexity
+* Supports auditability and lineage
