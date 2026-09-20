@@ -174,7 +174,7 @@ Data quality checks are designed across ingestion, transformation, modeling, and
 - [Data Quality Framework](documentation/data-quality-framework.md)
 - [Security and Access Model](documentation/security-and-access-model.md)
 - [BI Consumption Pattern](documentation/bi-consumption-pattern.md)
-- [Grain Definition](documentation/grain-definition.md)
+- [Grain Definitions](documentation/grain-definitions.md)
 - [KPI Definitions](documentation/kpi-definitions.md)
 
 ## Confidentiality Note
