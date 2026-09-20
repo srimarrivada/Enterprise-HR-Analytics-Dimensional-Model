@@ -24,9 +24,9 @@ The data quality framework validates data across ingestion, transformation, mode
 | Duplicate worker event check | Prevent duplicate lifecycle events | Warning |
 
 ## Severity Model
-- Critical: Stop pipeline and investigate
-- Warning: Continue with alert
-- Informational: Log for trend analysis
+- **Critical:** Stop pipeline and investigate
+- **Warning:** Continue with alert
+- **Informational:** Log for trend analysis
 
 ## DQ Output
 DQ results can be stored in a control table:
