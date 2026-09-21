@@ -32,3 +32,29 @@ The design follows Kimball dimensional modeling principles using a constellation
 - SCD2 dimensions for worker, organization, job, position, and location history
 - Conformed dimensions for consistent reporting across facts
 - Pre-aggregated facts for high-volume dashboard queries
+
+## Bus Matrix
+The bus matrix is used to define how facts and dimensions relate across HR analytics subject areas. It ensures that shared conformed dimensions are consistently reused across business processes.
+
+This model uses conformed dimensions such as:
+- Date
+- Worker
+- Position
+- Job
+- Company
+- Location
+- Department
+- Line of Service
+- Business Unit
+- Supervisory Organization
+
+The bus matrix helps validate:
+- Fact grain
+- Dimension reuse
+- Conformed dimension strategy
+- Subject-area coverage
+- Security-tiered facts
+- Optional/nullable relationships
+
+The detailed bus matrix is available here:
+[View Detailed Bus Matrix](diagrams/bus-matrix-detailed.png)
