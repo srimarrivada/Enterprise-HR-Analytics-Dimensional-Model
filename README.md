@@ -43,19 +43,46 @@ The model follows Kimball dimensional modeling principles using a constellation 
 - Semantic views for business-friendly consumption
 - Data quality and reconciliation checks across layers
 
+## Architecture Diagrams
+
+| Diagram | Description |
+|---|---|
+| [High-Level Architecture](diagrams/hr-analytics-high-level-architecture.png) | Simplified source-to-consumption platform flow. |
+| [End-to-End Architecture — Detailed View](diagrams/hr-analytics-end-to-end-architecture-detailed.png) | Detailed architecture covering source feeds, ETL, DQ, warehouse, security, semantic layer, users, and outcomes. |
+| [Constellation Schema](diagrams/hr-analytics-constellation-schema.png) | Kimball-style HR analytics constellation schema. |
+| [Bus Matrix Summary](diagrams/hr-analytics-bus-matrix-summary.png) | Summary of fact-to-dimension domain relationships. |
+| [Detailed Bus Matrix](diagrams/hr-analytics-bus-matrix-detailed.png) | Detailed fact-to-dimension mapping. |
+| [Security Model](diagrams/hr-analytics-security-model.png) | Three-tier HR analytics security design. |
+| [Aggregation Strategy](diagrams/hr-analytics-aggregation-strategy.png) | Pre-aggregated performance layer for BI consumption. |
+
 ## High-Level Architecture
+![Enterprise HR Analytics Platform High-Level Architecture](diagrams/hr-analytics-high-level-architecture.png)
+
+The high-level architecture shows the source-to-consumption flow of an enterprise HR analytics platform: source systems, curated DataHub layer, ETL processing, Kimball-style dimensional warehouse, security tiers, semantic/BI layer, business users, and business outcomes. 
+
+The design separates integration, modeling, security, aggregation, and consumption concerns to support scalable and governed HR analytics.
+
 The model is organized around shared enterprise dimensions and HR business-process facts.
 
 **Core design areas:**
 - Worker and organization dimensions
-- Position, job, location, company, department, and line-of-service dimensions
+- Position, job, location, company, department, and Line of Service dimensions
 - Headcount, hiring, termination, movement, compensation, performance, and learning facts
 - SCD2 history for point-in-time reporting
 - Bridge tables for multi-valued relationships
 - Aggregation tables for dashboard performance
 - Security tiers for general, restricted, and highly restricted data
 
+## End-to-End Architecture — Detailed View
+[View Enterprise HR Analytics Platform Detailed Architecture](diagrams/hr-analytics-end-to-end-architecture-detailed.png)
+
+This detailed architecture view expands the high-level flow into source feeds, curated DataHub structures, ETL processing, data quality, audit logging, metadata governance, Kimball dimensional warehouse design, security tiers, semantic/BI consumption, business user groups, and business outcomes.
+
+For easier navigation, see the simplified high-level architecture diagram first.
+
 ## Constellation Schema
+![HR Analytics Constellation Schema](diagrams/hr-analytics-constellation-schema.png)
+
 The constellation schema connects multiple HR business-process facts to shared conformed dimensions. This enables consistent analysis across workforce, movement, compensation, performance, learning, hiring, and termination subject areas.
 
 **Key characteristics:**
@@ -64,6 +91,14 @@ The constellation schema connects multiple HR business-process facts to shared c
 - Role-playing dimensions for dates and worker relationships
 - Bridge tables for many-to-many relationships
 - Aggregation tables for high-volume dashboard queries
+
+## Bus Matrix — Summary View
+![Bus Matrix Summary](diagrams/hr-analytics-bus-matrix-summary.png)
+
+The bus matrix summarizes how HR business-process fact tables connect to shared conformed dimension domains. It demonstrates the Kimball bus architecture approach, where common dimension domains such as Date, Worker, Organization, Job, Company, Location, Department, Compensation, Leave, Partner/Retiree, and Planning are reused across multiple HR analytics subject areas including workforce, movement, leave, compensation, performance, planning, partner, and retiree analytics.
+
+The detailed bus matrix is available here:
+[Detailed Bus Matrix](diagrams/hr-analytics-bus-matrix-detailed.png)
 
 ## Core Dimensions
 Representative dimensions include:
@@ -120,15 +155,16 @@ Bridge tables are used to handle many-to-many relationships and hierarchical rep
 Bridge design considerations include effective dating, allocation percentage, hierarchy paths, and double-counting prevention.
 
 ## Security Model
-The model uses security tiers to protect sensitive HR data:
-- General analytics layer
-- Restricted data layer
-- Highly restricted data layer
+![Enterprise HR Analytics Security Model](diagrams/hr-analytics-security-model.png)
 
-Security patterns include schema separation, role-based access control, row-level security, column masking, audit logging, and least-privilege access.
+The security model separates HR analytics data into general, restricted, and highly restricted layers. It uses security controls such as schema-level separation, role-based access control (RBAC), row-level security, column masking, explicit DENY rules, audit logging, sensitive access review, and least-privilege access.
 
 ## Aggregation Strategy
-Pre-aggregated tables are used to improve dashboard performance and reduce query scan volume.
+![Enterprise HR Analytics Aggregation Strategy](diagrams/hr-analytics-aggregation-strategy.png)
+
+The aggregation strategy introduces a pre-aggregated performance layer between detailed fact tables and the BI semantic layer. Common dashboard metrics are pre-computed at business-friendly grains such as month, company, location, line of service, department, job family, management level, worker type, employee class, and organization.
+
+This reduces repeated scans over detailed fact tables while still allowing detailed facts to remain available for audit, reconciliation, transaction-level analysis, and drill-through.
 
 **Common aggregation grains include:**
 - Month
@@ -166,6 +202,8 @@ Data quality checks are designed across ingestion, transformation, modeling, and
 - SCD2 current-row validation
 
 ## Detailed Documentation
+- [High-Level Architecture](documentation/high-level-architecture.md)
+- [End-to-End Architecture](documentation/end-to-end-architecture.md)
 - [Dimensional Model Overview](documentation/dimensional-model-overview.md)
 - [Fact Table Design](documentation/fact-table-design.md)
 - [Dimension Table Design](documentation/dimension-table-design.md)
